@@ -1,0 +1,34 @@
+syntax = "proto3";
+package calculation;
+
+import "google/protobuf/struct.proto";
+option go_package = "github.com/ahmedalialphasquad123/calculationService/proto";
+
+
+service  CalculationService{
+    rpc AggregationObject (CalculationRequest) returns (CalculationResponse);
+    rpc AggregationMaterialData (CalculationRequest) returns (CalculationResponse);
+    rpc GroupedMaterialPercentage (CalculationRequest) returns (CalculationResponse);
+    rpc MonthlyBreakdown (CalculationRequest) returns (CalculationResponse);
+    rpc TransactionsObjects (CalculationRequest) returns (CalculationResponse);
+    rpc MaterialTransactionScreenData (CalculationRequest) returns (CalculationResponse);
+    rpc GetAllTransactionsData (CalculationRequest) returns (CalculationResponse);
+    rpc PaginatedResults (CalculationRequest) returns (CalculationResponse);
+    rpc BccuScreenTransactionData (CalculationRequest) returns (CalculationResponse);
+    rpc BccuScreenGetresultObject (CalculationRequest) returns (CalculationResponse);
+    rpc BccuScreenAllTransactionData (CalculationRequest) returns (CalculationResponse);
+    rpc SuppliersScreenDataObjects (CalculationRequest) returns (CalculationResponse);
+    rpc SuppliersScreenDatapaginatedData (CalculationRequest) returns (CalculationResponse);
+    rpc MaterialTransactionScreenDatawthgetAllTransactionsNew (CalculationRequest) returns (CalculationResponse);
+    rpc MaterialTransactionScreenDatawthpaginatedData (CalculationRequest) returns (CalculationResponse);
+    rpc WelcomeScreenDatat1 (CalculationRequest) returns (CalculationResponse);
+    rpc WelcomeScreenDatat2 (CalculationRequest) returns (CalculationResponse);
+    }
+
+message CalculationRequest {
+    google.protobuf.Struct obj = 1;
+}
+
+message CalculationResponse {
+    google.protobuf.Struct data = 1;
+}
