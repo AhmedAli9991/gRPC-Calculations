@@ -42,7 +42,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CalculationServiceClient interface {
-	AggregationObject(ctx context.Context, in *CalculationRequest, opts ...grpc.CallOption) (*CalculationResponse, error)
+	AggregationObject(ctx context.Context, in *AggregationObjectRequest, opts ...grpc.CallOption) (*CalculationResponse, error)
 	AggregationMaterialData(ctx context.Context, in *CalculationRequest, opts ...grpc.CallOption) (*CalculationResponse, error)
 	GroupedMaterialPercentage(ctx context.Context, in *CalculationRequest, opts ...grpc.CallOption) (*CalculationResponse, error)
 	MonthlyBreakdown(ctx context.Context, in *CalculationRequest, opts ...grpc.CallOption) (*CalculationResponse, error)
@@ -69,7 +69,7 @@ func NewCalculationServiceClient(cc grpc.ClientConnInterface) CalculationService
 	return &calculationServiceClient{cc}
 }
 
-func (c *calculationServiceClient) AggregationObject(ctx context.Context, in *CalculationRequest, opts ...grpc.CallOption) (*CalculationResponse, error) {
+func (c *calculationServiceClient) AggregationObject(ctx context.Context, in *AggregationObjectRequest, opts ...grpc.CallOption) (*CalculationResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CalculationResponse)
 	err := c.cc.Invoke(ctx, CalculationService_AggregationObject_FullMethodName, in, out, cOpts...)
@@ -243,7 +243,7 @@ func (c *calculationServiceClient) WelcomeScreenDatat2(ctx context.Context, in *
 // All implementations must embed UnimplementedCalculationServiceServer
 // for forward compatibility
 type CalculationServiceServer interface {
-	AggregationObject(context.Context, *CalculationRequest) (*CalculationResponse, error)
+	AggregationObject(context.Context, *AggregationObjectRequest) (*CalculationResponse, error)
 	AggregationMaterialData(context.Context, *CalculationRequest) (*CalculationResponse, error)
 	GroupedMaterialPercentage(context.Context, *CalculationRequest) (*CalculationResponse, error)
 	MonthlyBreakdown(context.Context, *CalculationRequest) (*CalculationResponse, error)
@@ -267,7 +267,7 @@ type CalculationServiceServer interface {
 type UnimplementedCalculationServiceServer struct {
 }
 
-func (UnimplementedCalculationServiceServer) AggregationObject(context.Context, *CalculationRequest) (*CalculationResponse, error) {
+func (UnimplementedCalculationServiceServer) AggregationObject(context.Context, *AggregationObjectRequest) (*CalculationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AggregationObject not implemented")
 }
 func (UnimplementedCalculationServiceServer) AggregationMaterialData(context.Context, *CalculationRequest) (*CalculationResponse, error) {
@@ -332,7 +332,7 @@ func RegisterCalculationServiceServer(s grpc.ServiceRegistrar, srv CalculationSe
 }
 
 func _CalculationService_AggregationObject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CalculationRequest)
+	in := new(AggregationObjectRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -344,7 +344,7 @@ func _CalculationService_AggregationObject_Handler(srv interface{}, ctx context.
 		FullMethod: CalculationService_AggregationObject_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CalculationServiceServer).AggregationObject(ctx, req.(*CalculationRequest))
+		return srv.(CalculationServiceServer).AggregationObject(ctx, req.(*AggregationObjectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

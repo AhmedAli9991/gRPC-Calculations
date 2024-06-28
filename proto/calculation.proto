@@ -6,7 +6,7 @@ option go_package = "github.com/ahmedalialphasquad123/calculationService/proto";
 
 
 service  CalculationService{
-    rpc AggregationObject (CalculationRequest) returns (CalculationResponse);
+    rpc AggregationObject (AggregationObjectRequest) returns (CalculationResponse);
     rpc AggregationMaterialData (CalculationRequest) returns (CalculationResponse);
     rpc GroupedMaterialPercentage (CalculationRequest) returns (CalculationResponse);
     rpc MonthlyBreakdown (CalculationRequest) returns (CalculationResponse);
@@ -27,6 +27,19 @@ service  CalculationService{
 
 message CalculationRequest {
     google.protobuf.Struct obj = 1;
+}
+
+message AggregationObjectRequest {
+    int32 business_entity_id = 1;
+    string startDate = 2;
+    string endDate = 3;
+    int32 skip = 4;
+    int32 take = 5;
+    repeated string seller = 6;
+    repeated string buyer = 7;
+    repeated string material = 8;
+    string status = 9;
+    string search = 10;    
 }
 
 message CalculationResponse {

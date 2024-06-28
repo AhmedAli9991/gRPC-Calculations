@@ -13,7 +13,7 @@ type Server struct {
 	pb.UnimplementedCalculationServiceServer
 }
 
-func (s *Server) AggregationObject(ctx context.Context, req *pb.CalculationRequest) (*pb.CalculationResponse, error) {
+func (s *Server) AggregationObject(ctx context.Context, req *pb.AggregationObjectRequest) (*pb.CalculationResponse, error) {
 	response, err := handlers.HandleAggregationObject(req)
 	if err != nil {
 		log.Printf("Error handling AggregationObject: %v", err)
