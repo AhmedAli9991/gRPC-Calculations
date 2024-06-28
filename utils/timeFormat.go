@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func timeFormat(dateString string) (string, error) {
+func TimeFormat(dateString string) (string, error) {
 	// Splitting the date string to handle time zone separately
 	parts := strings.Fields(dateString)
 	if len(parts) < 5 {

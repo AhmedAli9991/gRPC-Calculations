@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/ahmedalialphasquad123/calculationService/database"
+	"github.com/ahmedalialphasquad123/calculationService/utils"
 
 	pb "github.com/ahmedalialphasquad123/calculationService/proto"
 	"google.golang.org/protobuf/types/known/structpb"
@@ -33,11 +34,21 @@ func HandleAggregationObject(req *pb.AggregationObjectRequest) (*pb.CalculationR
 	conditions := []string{fmt.Sprintf("business_entity_id = %d", req.BusinessEntityId)}
 
 	if req.StartDate != "" {
-		conditions = append(conditions, fmt.Sprintf("transaction_date >= '%s'", utils.timeFormat(req.StartDate)))
+		date, err := utils.TimeFormat(req.StartDate)
+		if err != nil {
+			log.Printf("Error formating date: %v", err)
+			return nil, err
+		}
+		conditions = append(conditions, fmt.Sprintf("transaction_date >= '%s'", date))
 	}
 
 	if req.EndDate != "" {
-		conditions = append(conditions, fmt.Sprintf("transaction_date <= '%s'", req.EndDate))
+		date, err := utils.TimeFormat(req.EndDate)
+		if err != nil {
+			log.Printf("Error formating date: %v", err)
+			return nil, err
+		}
+		conditions = append(conditions, fmt.Sprintf("transaction_date <= '%s'", date))
 	}
 
 	if len(req.Seller) > 0 {
